@@ -69,3 +69,12 @@ def mutate_code():
 if __name__ == '__main__':
     # إزالة كافة قيود التشغيل (وضع الإنتاج المفتوح)
     app.run(host='0.0.0.0', port=5000, threaded=True)
+# أضف هذه الدوال في نهاية الملف لتجنب خطأ "Not Found"
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({"status": "System Online", "version": "5.0", "message": "Welcome to SecurityCoreSuite"})
+
+# تأكد أن المنفذ (Port) ديناميكي ليناسب المواقع السحابية
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, threaded=True)
